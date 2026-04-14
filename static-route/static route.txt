@@ -1,0 +1,36 @@
+Wed Oct 15 09:31:20 2025   R1-ISP   Router>en
+Wed Oct 15 09:31:23 2025   R1-ISP   Router#config t
+Wed Oct 15 09:31:31 2025   R1-ISP   Router(config)#int s0/0/0
+Wed Oct 15 09:32:00 2025   R1-ISP   Router(config-if)#ip add 10.10.10.1 255.255.255.0
+Wed Oct 15 09:32:04 2025   R1-ISP   Router(config-if)#no shut
+Wed Oct 15 09:32:18 2025   R1-ISP   Router(config-if)#int f0/0
+Wed Oct 15 09:35:35 2025   R1-ISP   Router(config-if)#ip add 192.168.1.1 255.255.255.0
+Wed Oct 15 09:35:38 2025   R1-ISP   Router(config-if)#no shut
+Wed Oct 15 09:36:13 2025   R2-Central   Router>en
+Wed Oct 15 09:36:15 2025   R2-Central   Router#config t
+Wed Oct 15 09:36:25 2025   R2-Central   Router(config)#int s0/0/0
+Wed Oct 15 09:36:35 2025   R2-Central   Router(config-if)#ip add 10.10.10.2 255.255.255.0
+Wed Oct 15 09:36:38 2025   R2-Central   Router(config-if)#no shut
+Wed Oct 15 09:37:04 2025   R2-Central   Router(config-if)#int f0/0 
+Wed Oct 15 09:37:57 2025   R2-Central   Router(config-if)#ip add 172.168.1.1
+Wed Oct 15 09:38:02 2025   R2-Central   Router(config-if)#ip add 172.168.1.1 255.255.255.0
+Wed Oct 15 09:38:04 2025   R2-Central   Router(config-if)#no shut
+Wed Oct 15 09:55:42 2025   S1-Central   Switch>en
+Wed Oct 15 09:55:46 2025   S1-Central   Switch#config t
+Wed Oct 15 10:03:09 2025   S1-Central   Switch(config)#vtp pass 123
+Wed Oct 15 10:04:14 2025   S1-Central   Switch(config)#vtp domain thao.vn
+Wed Oct 15 10:04:23 2025   S1-Central   Switch(config)#vtp pass 123
+Wed Oct 15 10:04:36 2025   S1-Central   Switch(config)#vtp mode server
+Wed Oct 15 10:04:58 2025   S1-Central   Switch(config)#vtp mode client
+Wed Oct 15 10:05:06 2025   S1-Central   Switch(config)#do show vlan
+Wed Oct 15 10:05:25 2025   S1-Central   Switch(config)#vlan 1
+Fri Oct 17 09:06:56 2025   R2-Central   Router>en
+Fri Oct 17 09:07:08 2025   R2-Central   Router#config t
+Fri Oct 17 09:07:55 2025   R2-Central   Router(config)#ip route 192.168.1.0 255.255.255.0 10.10.10.1
+Fri Oct 17 09:08:12 2025   R1-ISP   Router>en
+Fri Oct 17 09:08:16 2025   R1-ISP   Router#config t
+Fri Oct 17 09:08:34 2025   R1-ISP   Router(config)#ip route 172.168.1.0 255.255.255.0 10.10.10.2
+Fri Oct 17 09:09:18 2025   R1-ISP   Router(config)#show ip route
+Fri Oct 17 09:09:20 2025   R1-ISP   Router(config)#exit
+Fri Oct 17 09:09:23 2025   R1-ISP   Router#en
+Fri Oct 17 09:09:28 2025   R1-ISP   Router#show ip route
