@@ -1,0 +1,51 @@
+Mon Oct 2 19:55:17 2023   pnh   Router>en
+Mon Oct 2 19:55:24 2023   pnh   Router#config t
+Mon Oct 2 19:55:34 2023   pnh   Router(config)#int g0/0
+Mon Oct 2 19:55:49 2023   pnh   Router(config-if)#ip add 172.16.0.1 255.2555.2
+Mon Oct 2 19:55:56 2023   pnh   Router(config-if)#ip add 172.16.0.1 255.255.255.0 
+Mon Oct 2 19:55:58 2023   pnh   Router(config-if)#no shut
+Wed Oct 4 19:16:18 2023   pnh   Router>enable
+Wed Oct 4 19:16:18 2023   pnh   Router#configure terminal
+Wed Oct 4 19:16:18 2023   pnh   Router(config)#interface GigabitEthernet0/0
+Wed Oct 4 19:16:20 2023   pnh   Router(config-if)#exit
+Wed Oct 4 19:16:20 2023   pnh   Router(config)#interface GigabitEthernet0/1
+Wed Oct 4 19:16:21 2023   pnh   Router(config-if)#exit
+Wed Oct 4 19:16:21 2023   pnh   Router(config)#interface GigabitEthernet0/2
+Wed Oct 4 19:18:23 2023   pnh   Router(config-if)#int g0/1
+Wed Oct 4 19:18:38 2023   pnh   Router(config-if)#ip add 192.168.0.1 255.255.255.0
+Wed Oct 4 19:18:45 2023   pnh   Router(config-if)#no shut
+Wed Oct 4 19:18:52 2023   pnh   Router(config-if)#int g0/2
+Wed Oct 4 19:19:04 2023   pnh   Router(config-if)#ip add 7.7.7.1 255.
+Wed Oct 4 19:19:10 2023   pnh   Router(config-if)#ip add 7.7.7.1 255.255.255.252
+Wed Oct 4 19:19:22 2023   pnh   Router(config-if)#no shut
+Wed Oct 4 19:19:31 2023   isp   Router>en
+Wed Oct 4 19:19:36 2023   isp   Router#config t
+Wed Oct 4 19:19:45 2023   isp   Router(config)#int g0/2
+Wed Oct 4 19:20:22 2023   isp   Router(config-if)#ip add 7.7.7.2
+Wed Oct 4 19:20:30 2023   isp   Router(config-if)#ip add 7.7.7.2 255.255.255.252
+Wed Oct 4 19:20:32 2023   isp   Router(config-if)#no shut
+Wed Oct 4 19:20:39 2023   isp   Router(config-if)#int g0/0
+Wed Oct 4 19:20:56 2023   isp   Router(config-if)#ip add 8.8.8.1 255.255.255.0
+Wed Oct 4 19:20:58 2023   isp   Router(config-if)#no shut
+Wed Oct 4 19:21:10 2023   isp   Router(config-if)#int g0/1
+Wed Oct 4 19:21:27 2023   isp   Router(config-if)#ip add 9.9.9.1 255.255.255.252
+Wed Oct 4 19:21:30 2023   isp   Router(config-if)#no shut
+Wed Oct 4 19:33:56 2023   pnh   Router>en 
+Wed Oct 4 19:34:06 2023   pnh   Router#config t
+Wed Oct 4 19:48:11 2023   pnh   Router>en
+Wed Oct 4 19:48:16 2023   pnh   Router#config t
+Wed Oct 4 19:48:58 2023   pnh   Router(config)#access-list 100 permit ip host 192.168.0.150 172.16.0.0 0.0.0.255
+Wed Oct 4 19:49:35 2023   pnh   Router(config)#access-list 100 deny tcp host 192.168.0.150 any eq 80
+Wed Oct 4 19:49:46 2023   pnh   Router(config)#access-list 100 deny tcp host 192.168.0.150 any eq 443
+Wed Oct 4 19:50:59 2023   pnh   Router(config)#access-list 100 permit tcp host 192.168.0.200 host 172.16.0.10 eq 80
+Wed Oct 4 19:51:58 2023   pnh   Router(config)#access-list 100 permit tcp host 192.168.0.200 host 172.16.0.10 eq 443
+Wed Oct 4 19:52:33 2023   pnh   Router(config)#access-list 100 deny ip host 192.168.0.200 172.16.0.0 0.0.0.255
+Wed Oct 4 19:52:57 2023   pnh   Router(config)#access-list 100 permit ip any any 
+Wed Oct 4 19:53:04 2023   pnh   Router(config)#int g0/1
+Wed Oct 4 19:53:35 2023   pnh   Router(config-if)#ip access-group 100 in
+Wed Oct 4 19:54:40 2023   pnh   Router(config-if)#access-list 101 deny icmp any any 8
+Wed Oct 4 19:54:58 2023   pnh   Router(config)#access-list 101 permit icmp any any
+Wed Oct 4 19:55:03 2023   pnh   Router(config)#int g0/2
+Wed Oct 4 19:55:22 2023   pnh   Router(config-if)#ip access-group 101 in
+Wed Oct 4 19:55:24 2023   pnh   Router(config-if)#end\
+Wed Oct 4 19:55:26 2023   pnh   Router(config-if)#end
