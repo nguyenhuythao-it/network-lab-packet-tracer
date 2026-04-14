@@ -1,0 +1,127 @@
+Fri Oct 13 14:54:36 2023   ISP   Router>en
+Fri Oct 13 14:54:38 2023   ISP   Router#config t
+Fri Oct 13 14:56:38 2023   ISP   Router(config)#int g0/0
+Fri Oct 13 15:10:01 2023   ISP   Router>en
+Fri Oct 13 15:10:04 2023   ISP   Router#config t
+Fri Oct 13 15:10:10 2023   ISP   Router(config)#int g0/0
+Fri Oct 13 15:10:23 2023   ISP   Router(config-if)#ip add 8.8.8.1 255.255.255.0 
+Fri Oct 13 15:11:01 2023   ISP   Router(config-if)#no shut
+Fri Oct 13 15:11:45 2023   ISP   Router(config-if)#int g0/1
+Fri Oct 13 15:12:11 2023   ISP   Router(config-if)#ip add 9.9.9.1 255.255.255.0
+Fri Oct 13 15:12:14 2023   ISP   Router(config-if)#no shut
+Fri Oct 13 15:12:19 2023   ISP   Router(config-if)#int g0/2
+Fri Oct 13 15:12:45 2023   ISP   Router(config-if)#ip add 7.7.7.2 255.255.255.252
+Fri Oct 13 15:12:49 2023   ISP   Router(config-if)#no shut
+Fri Oct 13 15:14:27 2023   ISP   Router(config-if)#ip route 69.0.0.0 255.255.255.0 7.7.7.1
+Fri Oct 13 15:15:12 2023   Core   Switch>en
+Fri Oct 13 15:15:15 2023   Core   Switch#config t
+Fri Oct 13 15:15:24 2023   Core   Switch(config)#hostname Core
+Fri Oct 13 15:52:12 2023   ISP   Router>en
+Fri Oct 13 15:52:20 2023   ISP   Router#config t
+Fri Oct 13 15:54:04 2023   ISP   Router(config)#vtp domain pnh.vn
+Fri Oct 13 15:54:26 2023   ISP   Router(config)#hostname Core
+Fri Oct 13 15:54:41 2023   ISP   Core(config)#vtp domain pnh.vn
+Fri Oct 13 15:55:09 2023   Core   Core>en
+Fri Oct 13 15:55:26 2023   Core   Core#config t
+Fri Oct 13 15:55:43 2023   Core   Core(config)#vtp domain pnh.vn
+Fri Oct 13 15:55:49 2023   Core   Core(config)#vtp pass 123
+Fri Oct 13 15:56:08 2023   Core   Core(config)#vtp mode server
+Fri Oct 13 15:56:11 2023   Core   Core(config)#vlan 2
+Fri Oct 13 15:56:21 2023   Core   Core(config-vlan)#name system 
+Fri Oct 13 15:56:23 2023   Core   Core(config-vlan)#vlan 3
+Fri Oct 13 15:56:30 2023   Core   Core(config-vlan)#name app
+Fri Oct 13 15:56:33 2023   Core   Core(config-vlan)#vlan 4
+Fri Oct 13 15:56:43 2023   Core   Core(config-vlan)#name dmz
+Fri Oct 13 15:56:48 2023   Core   Core(config-vlan)#vlan 5 
+Fri Oct 13 15:57:05 2023   Core   Core(config-vlan)#name user
+Fri Oct 13 15:58:40 2023   Core   Core(config-vlan)#exit
+Fri Oct 13 15:59:01 2023   Core   Core(config)#int range g1/0/1-3
+Fri Oct 13 15:59:29 2023   Core   Core(config-if-range)#switchport trunk encapsulation dot1q
+Fri Oct 13 16:08:04 2023   Core   Core#configure terminal
+Fri Oct 13 16:08:04 2023   Core   Core(config)#interface GigabitEthernet1/0/4
+Fri Oct 13 16:08:05 2023   Core   Core(config-if)#exit
+Fri Oct 13 16:08:05 2023   Core   Core(config)#interface GigabitEthernet1/0/1
+Fri Oct 13 16:08:07 2023   Core   Core(config-if)#exit
+Fri Oct 13 16:08:07 2023   Core   Core(config)#interface GigabitEthernet1/0/4
+Fri Oct 13 16:08:07 2023   Core   Core(config-if)#exit
+Fri Oct 13 16:08:07 2023   Core   Core(config)#interface GigabitEthernet1/0/2
+Fri Oct 13 16:08:08 2023   Core   Core(config-if)#exit
+Fri Oct 13 16:08:51 2023   Core   Core(config)#int range g1/0/1-3
+Fri Oct 13 16:09:01 2023   Core   Core(config-if-range)#switchport trunk encapsulation dot1q
+Fri Oct 13 16:12:18 2023   Core   Core(config)#switchport mode trunk 
+Fri Oct 13 16:12:59 2023   Core   Core(config)#int range g1/0/2-3
+Fri Oct 13 16:13:04 2023   Core   Core(config-if-range)#switchport trunk encapsulation dot1q
+Fri Oct 13 16:13:11 2023   Core   Core(config)#int range g1/0/1-3
+Fri Oct 13 16:13:27 2023   Core   Core(config-if-range)#switchport mode trunk 
+Fri Oct 13 16:13:44 2023   Core   Core(config-if-range)#end
+Fri Oct 13 16:13:59 2023   Core   Core#show vtp status
+Fri Oct 13 16:14:26 2023   Core   Core#show vtp password
+Fri Oct 13 16:14:41 2023   Core   Core#show vlan
+Fri Oct 13 16:15:31 2023   Core   Core#show ip trunk
+Fri Oct 13 16:15:39 2023   Core   Core#show int trunk
+Fri Oct 13 16:16:07 2023   Access1   Switch>en
+Fri Oct 13 16:16:09 2023   Access1   Switch#config t
+Fri Oct 13 16:16:20 2023   Access1   Switch(config)#hostname Access1
+Fri Oct 13 16:16:31 2023   Access1   Access1(config)#vtp domain pnh.vn
+Fri Oct 13 16:16:37 2023   Access1   Access1(config)#vtp pass 123
+Fri Oct 13 16:16:47 2023   Access1   Access1(config)#vtp mode client
+Fri Oct 13 16:16:53 2023   Access1   Access1(config)#do show vlan
+Fri Oct 13 16:17:07 2023   Access1   Access1(config)#int f0/4
+Fri Oct 13 16:17:23 2023   Access1   Access1(config-if)#switchport mode access 
+Fri Oct 13 16:17:35 2023   Access1   Access1(config-if)#switchport access vlan 2
+Fri Oct 13 16:17:41 2023   Access1   Access1(config-if)#int f0/6
+Fri Oct 13 16:17:56 2023   Access1   Access1(config-if)#switchport mode access 
+Fri Oct 13 16:18:10 2023   Access1   Access1(config-if)#switchport access vlan 3
+Fri Oct 13 16:18:15 2023   Access1   Access1(config-if)#int f0/8
+Fri Oct 13 16:18:24 2023   Access1   Access1(config-if)#switchport mode access
+Fri Oct 13 16:18:28 2023   Access1   Access1(config-if)#switchport access vlan 4
+Fri Oct 13 16:18:35 2023   Access1   Access1(config-if)#do show vlan
+Fri Oct 13 16:18:53 2023   Access2   Switch>en
+Fri Oct 13 16:18:56 2023   Access2   Switch#config t
+Fri Oct 13 16:19:05 2023   Access2   Switch(config)#hostname Access2
+Fri Oct 13 16:19:12 2023   Access2   Access2(config)#vtp domain pnh.vn
+Fri Oct 13 16:19:19 2023   Access2   Access2(config)#vtp pass 123
+Fri Oct 13 16:19:26 2023   Access2   Access2(config)#vtp mode client
+Fri Oct 13 16:19:31 2023   Access2   Access2(config)#do show vlan
+Fri Oct 13 16:19:43 2023   Access2   Access2(config)#int f0/4
+Fri Oct 13 16:19:54 2023   Access2   Access2(config-if)#switchport mode access
+Fri Oct 13 16:20:10 2023   Access2   Access2(config-if)#switchport access vlan 2
+Fri Oct 13 16:20:24 2023   Access2   Access2(config-if)#int f0/8
+Fri Oct 13 16:20:27 2023   Access2   Access2(config-if)#switchport mode access
+Fri Oct 13 16:20:31 2023   Access2   Access2(config-if)#switchport access vlan 5
+Fri Oct 13 16:20:41 2023   Access2   Access2(config-if)#do show vlan
+Fri Oct 13 16:20:59 2023   PNH   Router>en 
+Fri Oct 13 16:21:02 2023   PNH   Router#config t
+Fri Oct 13 16:21:06 2023   PNH   Router(config)#hostname PNH
+Fri Oct 13 16:21:23 2023   PNH   PNH(config)#int g0/0
+Fri Oct 13 16:21:25 2023   PNH   PNH(config-if)#no shut
+Fri Oct 13 16:21:45 2023   PNH   PNH(config-if)#int g0/1
+Fri Oct 13 16:22:01 2023   PNH   PNH(config-if)#ip add 7.7.7.1 255.255.255.252
+Fri Oct 13 16:22:03 2023   PNH   PNH(config-if)#no shut
+Fri Oct 13 16:22:44 2023   PNH   PNH(config-if)#int g0/0.1
+Fri Oct 13 16:22:54 2023   PNH   PNH(config-subif)#encapsulation dot1q 1
+Fri Oct 13 16:23:05 2023   PNH   PNH(config-subif)#ip add 10.1.1.1. 255.255.255.0
+Fri Oct 13 16:23:13 2023   PNH   PNH(config-subif)#ip add 10.1.1.1 255.255.255.0
+Fri Oct 13 16:23:21 2023   PNH   PNH(config-subif)#ip nat inside
+Fri Oct 13 16:23:23 2023   PNH   PNH(config-subif)#no shut
+Fri Oct 13 16:23:34 2023   PNH   PNH(config-subif)#int g0/0.2
+Fri Oct 13 16:23:41 2023   PNH   PNH(config-subif)#encapsulation dot1q 2
+Fri Oct 13 16:23:52 2023   PNH   PNH(config-subif)#ip add 10.2.2.1 255.255.255.0
+Fri Oct 13 16:24:01 2023   PNH   PNH(config-subif)#ip nat inside
+Fri Oct 13 16:24:03 2023   PNH   PNH(config-subif)#no shut
+Fri Oct 13 16:24:08 2023   PNH   PNH(config-subif)#int g0/0.3
+Fri Oct 13 16:24:13 2023   PNH   PNH(config-subif)#encapsulation dot1q 3
+Fri Oct 13 16:24:20 2023   PNH   PNH(config-subif)#ip add 10.3.3.1 255.255.255.0
+Fri Oct 13 16:24:31 2023   PNH   PNH(config-subif)#ip nat inside
+Fri Oct 13 16:24:34 2023   PNH   PNH(config-subif)#no shut
+Fri Oct 13 16:24:38 2023   PNH   PNH(config-subif)#int g0/0.4
+Fri Oct 13 16:24:43 2023   PNH   PNH(config-subif)#encapsulation dot1q 4
+Fri Oct 13 16:24:58 2023   PNH   PNH(config-subif)#ip add 10.4.4.1 255.255.255.0
+Fri Oct 13 16:25:07 2023   PNH   PNH(config-subif)#ip nat inside 
+Fri Oct 13 16:26:05 2023   PNH   PNH(config-subif)#int g0/0.5
+Fri Oct 13 16:26:11 2023   PNH   PNH(config-subif)#encapsulation dot1q 5
+Fri Oct 13 16:26:26 2023   PNH   PNH(config-subif)#ip add 10.5.5.1 255.255.255.0
+Fri Oct 13 16:26:31 2023   PNH   PNH(config-subif)#ip nat inside
+Fri Oct 13 16:26:45 2023   PNH   PNH(config-subif)#ip helper-address 10.2.2.10
+Fri Oct 13 16:26:46 2023   PNH   PNH(config-subif)#end
+Fri Oct 13 16:27:03 2023   PNH   PNH#show ip int brief
