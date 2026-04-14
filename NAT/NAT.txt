@@ -1,0 +1,72 @@
+Fri Oct 6 19:22:09 2023   PNH   Router>en
+Fri Oct 6 19:22:11 2023   PNH   Router#config t
+Fri Oct 6 19:22:15 2023   PNH   Router(config)#int g0/0
+Fri Oct 6 19:22:34 2023   PNH   Router(config-if)#ip add 172.16.0.1 255.255.255.0
+Fri Oct 6 19:22:36 2023   PNH   Router(config-if)#no shut
+Fri Oct 6 19:22:41 2023   PNH   Router(config-if)#int g0/2
+Fri Oct 6 19:23:00 2023   PNH   Router(config-if)#ip add 6.6.6.6 255.255.255.0
+Fri Oct 6 19:23:02 2023   PNH   Router(config-if)#no shut
+Fri Oct 6 19:23:09 2023   PNH   Router(config-if)#int g0/
+Fri Oct 6 19:23:12 2023   PNH   Router(config-if)#int g0/1
+Fri Oct 6 19:23:24 2023   PNH   Router(config-if)#ip add 192.168.0.1 255.255.255.0
+Fri Oct 6 19:23:26 2023   PNH   Router(config-if)#no shut
+Fri Oct 6 19:23:42 2023   ISP   Router>en
+Fri Oct 6 19:23:45 2023   ISP   Router#config t
+Fri Oct 6 19:23:57 2023   ISP   Router(config)#int g0/0
+Fri Oct 6 19:24:11 2023   ISP   Router(config-if)#ip add 6.6.6.1 255.255.255.0
+Fri Oct 6 19:24:12 2023   ISP   Router(config-if)#no shut
+Fri Oct 6 19:24:17 2023   ISP   Router(config-if)#int g0/1
+Fri Oct 6 19:24:26 2023   ISP   Router(config-if)#ip add 8.8.8.1 255.255.255.0
+Fri Oct 6 19:24:29 2023   ISP   Router(config-if)#no shut
+Fri Oct 6 19:24:36 2023   ISP   Router(config-if)#int g0/2 
+Fri Oct 6 19:24:49 2023   ISP   Router(config-if)#ip add 7.7.7.1 255.255.255.0
+Fri Oct 6 19:24:50 2023   ISP   Router(config-if)#no shut
+Fri Oct 6 19:25:02 2023   google   Router>en
+Fri Oct 6 19:25:04 2023   google   Router#config t
+Fri Oct 6 19:25:08 2023   google   Router(config)#int g0/0
+Fri Oct 6 19:25:37 2023   google   Router(config-if)#ip add 172.16.0.1 255.255.255.0
+Fri Oct 6 19:25:40 2023   google   Router(config-if)#no shut
+Fri Oct 6 19:25:47 2023   google   Router(config-if)#int g0/1
+Fri Oct 6 19:25:56 2023   google   Router(config-if)#ip add 8.8.8.8 255.255.255.0
+Fri Oct 6 19:25:57 2023   google   Router(config-if)#no shut
+Fri Oct 6 19:31:43 2023   PNH   Router(config-if)#end\
+Fri Oct 6 19:31:45 2023   PNH   Router(config-if)#end
+Fri Oct 6 19:32:40 2023   PNH   Router#config t
+Fri Oct 6 19:33:34 2023   PNH   Router(config)#access-list 1 permit 192.168.0.2 0.0.0.255
+Fri Oct 6 19:34:12 2023   PNH   Router(config)#access-list 1 permit 192.168.0.3 0.0.0.255
+Fri Oct 6 19:40:44 2023   PNH   Router(config)#ip nat pool PNH-POOL-NAT 222.254.9.101 222.254.9.101 netmark 255.255.255.0
+Fri Oct 6 19:41:03 2023   PNH   Router(config)#ip nat pool PNH-POOL-NAT 222.254.9.101 222.254.9.101 subnetmark 255.255.255.0
+Fri Oct 6 19:41:24 2023   PNH   Router(config)#ip natpool PNH-POOL-NAT 222.254.9.101 222.254.9.101 netmark 255.255.255.0
+Fri Oct 6 19:41:37 2023   PNH   Router(config)#ip nat pool PNH-POOL-NAT 222.254.9.101 netmark 255.255.255.0
+Fri Oct 6 19:41:47 2023   PNH   Router(config)#ip nat pool PNH-POOL-NAT 222.254.9.101 subnetmark 255.255.255.0
+Fri Oct 6 19:42:14 2023   PNH   Router(config)#ipnatpool PNH-POOL-NAT 222.254.9.101 netmark 255.255.255.0
+Fri Oct 6 19:42:44 2023   PNH   Router(config)#ipnatpool PNH-POOL-NAT 222.254.9.101 222.254.9.101 netmark 255.255.255.0
+Fri Oct 6 19:47:09 2023   PNH   Router(config)#end
+Fri Oct 6 19:47:14 2023   PNH   Router#config t
+Fri Oct 6 19:47:30 2023   PNH   Router(config)#ip route 0.0.0.0 0.0.0.0 6.6.6.1
+Fri Oct 6 19:47:48 2023   PNH   Router(config)#access-list 1 permit any
+Fri Oct 6 19:48:25 2023   PNH   Router(config)#ip nat pool PNH 6.6.6.6 6.6.6.6 netmark 255.255.255.0
+Fri Oct 6 19:49:19 2023   PNH   Router(config)#ip nat pool PNH 6.6.6.6 6.6.6.6 netmask 255.255.255.0
+Fri Oct 6 19:49:51 2023   PNH   Router(config)#ip nat inside source list 1 pool PNH overload
+Fri Oct 6 19:49:59 2023   PNH   Router(config)#int g0/0
+Fri Oct 6 19:50:06 2023   PNH   Router(config-if)#ip nat inside
+Fri Oct 6 19:50:12 2023   PNH   Router(config-if)#int g0/1
+Fri Oct 6 19:50:21 2023   PNH   Router(config-if)#ip nat in side
+Fri Oct 6 19:50:25 2023   PNH   Router(config-if)#ip nat inside
+Fri Oct 6 19:50:29 2023   PNH   Router(config-if)#int g0/2
+Fri Oct 6 19:50:39 2023   PNH   Router(config-if)#ip nat outside
+Fri Oct 6 19:50:51 2023   google   Router>en
+Fri Oct 6 19:50:53 2023   google   Router#config t
+Fri Oct 6 19:51:10 2023   google   Router(config)#ip route 0.0.0.0 0.0.0.0 8.8.8.1
+Fri Oct 6 19:51:48 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.10 8.8.8.8 53
+Fri Oct 6 19:52:12 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.10 53 8.8.8.8 53
+Fri Oct 6 19:52:29 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.20 80 8.8.8.8 80
+Fri Oct 6 19:52:45 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.20 443 8.8.8.8 443
+Fri Oct 6 19:53:05 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.30 25 8.8.8.8 25
+Fri Oct 6 19:53:16 2023   google   Router(config)#ip nat inside source static tcp 172.16.0.30 110 8.8.8.8 110
+Fri Oct 6 19:53:23 2023   google   Router(config)#int g0/0
+Fri Oct 6 19:53:28 2023   google   Router(config-if)#ip nat inside
+Fri Oct 6 19:53:32 2023   google   Router(config-if)#g0/1
+Fri Oct 6 19:53:37 2023   google   Router(config-if)#int g0/1
+Fri Oct 6 19:53:49 2023   google   Router(config-if)#ip nat outside
+Fri Oct 6 19:53:52 2023   google   Router(config-if)#end
