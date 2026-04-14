@@ -1,4 +1,4 @@
-# Lab 3 - Static Route
+# Static Route
 
 ## Mục tiêu
 - Cấu hình định tuyến tĩnh giữa các router.
