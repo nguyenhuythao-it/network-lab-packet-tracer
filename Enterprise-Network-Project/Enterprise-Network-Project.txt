@@ -1,0 +1,278 @@
+Sat May 23 01:06:35 2026   MTSW1   Switch>en
+Sat May 23 01:06:37 2026   MTSW1   Switch#config t
+Sat May 23 01:07:06 2026   MTSW1   Switch(config)#hostname MTSW1
+Sat May 23 01:07:40 2026   MTSW1   MTSW1(config)#int f0/1
+Sat May 23 01:07:55 2026   MTSW1   MTSW1(config-if)#no switchport
+Sat May 23 01:08:24 2026   MTSW1   MTSW1(config-if)#ip add 192.168.1.2 255.255.255.252
+Sat May 23 01:08:26 2026   MTSW1   MTSW1(config-if)#no shut
+Sat May 23 01:08:31 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 01:08:40 2026   MTSW1   MTSW1(config)#ip routing 
+Sat May 23 01:08:57 2026   MTSW1   MTSW1(config)#vlan 10 
+Sat May 23 01:09:00 2026   MTSW1   MTSW1(config-vlan)#name HR
+Sat May 23 01:09:07 2026   MTSW1   MTSW1(config-vlan)#vlan 20
+Sat May 23 01:09:09 2026   MTSW1   MTSW1(config-vlan)#name IT
+Sat May 23 01:12:40 2026   MTSW1   MTSW1(config-vlan)#exit
+Sat May 23 01:13:55 2026   MTSW1   MTSW1(config)#int range f0/2,5
+Sat May 23 01:14:03 2026   MTSW1   MTSW1(config)#int range f0/2,f0/5
+Sat May 23 01:15:08 2026   MTSW1   MTSW1(config-if-range)#switchport trunk encapsulation dot1q
+Sat May 23 01:15:14 2026   MTSW1   MTSW1(config-if-range)#switchport mode trunk
+Sat May 23 01:15:19 2026   MTSW1   MTSW1(config-if-range)#exit
+Sat May 23 01:15:24 2026   MTSW1   MTSW1(config)#int vlan 10
+Sat May 23 01:17:14 2026   MTSW1   MTSW1(config-if)#ip add 192.168.10.1 255.255.255.0
+Sat May 23 01:17:19 2026   MTSW1   MTSW1(config-if)#no shut
+Sat May 23 01:17:30 2026   MTSW1   MTSW1(config-if)#int vlan 20
+Sat May 23 01:17:55 2026   MTSW1   MTSW1(config-if)#ip add 192.168.20.1 255.255.255.0
+Sat May 23 01:17:57 2026   MTSW1   MTSW1(config-if)#no shut
+Sat May 23 01:17:58 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 01:18:23 2026   MTSW1   MTSW1(config)#router ospf 1
+Sat May 23 01:18:59 2026   MTSW1   MTSW1(config-router)#network 192.168.10.0 0.0.0.255 a 0
+Sat May 23 01:19:20 2026   MTSW1   MTSW1(config-router)#network 192.168.20.0 0.0.0.255 a 0
+Sat May 23 01:19:40 2026   MTSW1   MTSW1(config-router)#network 192.168.1.0 0.0.0.255 a 0
+Sat May 23 01:20:08 2026   MTSW1   MTSW1(config-router)#exit
+Sat May 23 01:21:00 2026   MTSW1   MTSW1(config)#ip dhcp pool vlan10
+Sat May 23 01:21:20 2026   MTSW1   MTSW1(dhcp-config)#network 192.168.10.0 255.255.255.0
+Sat May 23 01:21:48 2026   MTSW1   MTSW1(dhcp-config)#default-router 192.168.10.1
+Sat May 23 01:22:02 2026   MTSW1   MTSW1(dhcp-config)#dns-server 8.8.8.8
+Sat May 23 01:22:03 2026   MTSW1   MTSW1(dhcp-config)#exit
+Sat May 23 01:22:43 2026   MTSW1   MTSW1(config)#ip dhcp excluded-address 192.168.10.1 192.168.10.10
+Sat May 23 01:22:58 2026   MTSW1   MTSW1(config)#ip dhcp excluded-address 192.168.20.1 192.168.20.10
+Sat May 23 01:23:24 2026   MTSW1   MTSW1(config)#ip dhcp pool vlan20
+Sat May 23 01:23:37 2026   MTSW1   MTSW1(dhcp-config)#network 192.168.20.0 255.255.255.0
+Sat May 23 01:23:51 2026   MTSW1   MTSW1(dhcp-config)#default-router 192.168.20.2
+Sat May 23 01:24:03 2026   MTSW1   MTSW1(dhcp-config)#no default-router 192.168.20.2
+Sat May 23 01:24:18 2026   MTSW1   MTSW1(dhcp-config)#default-router 192.168.20.1
+Sat May 23 01:24:23 2026   MTSW1   MTSW1(dhcp-config)#do wr
+Sat May 23 01:24:55 2026   SW1   Switch>en
+Sat May 23 01:24:58 2026   SW1   Switch#config t
+Sat May 23 01:25:11 2026   SW1   Switch(config)#hostname SW1
+Sat May 23 01:25:16 2026   SW1   SW1(config)#vlan 10
+Sat May 23 01:25:24 2026   SW1   SW1(config-vlan)#name HR
+Sat May 23 01:25:28 2026   SW1   SW1(config-vlan)#exit
+Sat May 23 01:26:15 2026   SW1   SW1(config)#int range f0/2-5
+Sat May 23 01:26:29 2026   SW1   SW1(config-if-range)#switchport mode access
+Sat May 23 01:26:37 2026   SW1   SW1(config-if-range)#switchport access vlan 10
+Sat May 23 01:26:42 2026   SW1   SW1(config-if-range)#exit
+Sat May 23 01:27:17 2026   SW1   SW1(config)#int f0/1
+Sat May 23 01:27:26 2026   SW1   SW1(config-if)#switchport mode trunk
+Sat May 23 01:27:30 2026   SW1   SW1(config-if)#do wr
+Sat May 23 01:31:33 2026   SW2   Switch>en
+Sat May 23 01:31:35 2026   SW2   Switch#config t
+Sat May 23 01:31:42 2026   SW2   Switch(config)#host name SW2
+Sat May 23 01:31:46 2026   SW2   Switch(config)#hostname SW2
+Sat May 23 01:31:57 2026   SW2   SW2(config)#int f0/1
+Sat May 23 01:32:03 2026   SW2   SW2(config-if)#switchport mode trunk
+Sat May 23 01:32:06 2026   SW2   SW2(config-if)#exit
+Sat May 23 01:32:18 2026   SW2   SW2(config)#vlan 20
+Sat May 23 01:32:21 2026   SW2   SW2(config-vlan)#name IT
+Sat May 23 01:32:24 2026   SW2   SW2(config-vlan)#exit
+Sat May 23 01:35:00 2026   SW2   SW2(config)#int vlan20
+Sat May 23 01:35:09 2026   SW2   SW2(config-if)#exit
+Sat May 23 01:35:26 2026   SW2   SW2(config)#int range f0/2-5
+Sat May 23 01:35:33 2026   SW2   SW2(config-if-range)#switchport mode access
+Sat May 23 01:35:42 2026   SW2   SW2(config-if-range)#switchport access vlan 20
+Sat May 23 01:35:53 2026   SW2   SW2(config-if-range)#exit
+Sat May 23 01:35:56 2026   SW2   SW2(config)#wr
+Sat May 23 01:36:04 2026   SW2   SW2(config)#exit
+Sat May 23 01:36:06 2026   SW2   SW2#wr
+Sat May 23 01:36:14 2026   SW2   SW2#sh vlan br
+Sat May 23 01:36:37 2026   SW2   SW2#sh int trunk
+Sat May 23 01:38:08 2026   MTSW1   MTSW1>en
+Sat May 23 01:38:09 2026   MTSW1   MTSW1#config t
+Sat May 23 01:38:15 2026   MTSW1   MTSW1(config)#ip dhcp pool vlan20
+Sat May 23 01:38:27 2026   MTSW1   MTSW1(dhcp-config)#dns-server 8.8.8.8
+Sat May 23 01:38:35 2026   MTSW1   MTSW1(dhcp-config)#do wr
+Sat May 23 01:56:00 2026   R1   Router>en
+Sat May 23 01:56:05 2026   R1   Router#cofig t
+Sat May 23 01:56:09 2026   R1   Router#config t
+Sat May 23 01:56:18 2026   R1   Router(config)#hostname R1
+Sat May 23 01:57:00 2026   R1   R1(config)#int g0/0/1
+Sat May 23 01:59:52 2026   R1   R1(config-if)#ip add 10.10.10.1 255.255.255.252
+Sat May 23 01:59:53 2026   R1   R1(config-if)#no shut
+Sat May 23 02:00:07 2026   R1   R1(config-if)#int g0/0/0
+Sat May 23 02:00:34 2026   R1   R1(config-if)#ip add 192.168.1.1 255.255.255.252
+Sat May 23 02:00:36 2026   R1   R1(config-if)#no shut
+Sat May 23 02:00:52 2026   R1   R1(config-if)#exit
+Sat May 23 02:01:00 2026   R1   R1(config)#router ospf 1
+Sat May 23 02:01:54 2026   R1   R1(config-router)#network 10.10.10.0 0.0.0.3 a 0
+Sat May 23 02:02:11 2026   R1   R1(config-router)#network 192.168.1.0 0.0.0.3 a 0
+Sat May 23 02:03:02 2026   MTSW1   MTSW1>en
+Sat May 23 02:03:06 2026   MTSW1   MTSW1#config t
+Sat May 23 02:03:17 2026   MTSW1   MTSW1(config)#roter ospf 1
+Sat May 23 02:03:29 2026   MTSW1   MTSW1(config)#router ospf 1
+Sat May 23 02:04:18 2026   MTSW1   MTSW1(config-router)#no network 192.168.1.0 0.0.0.255 a 0
+Sat May 23 02:04:31 2026   MTSW1   MTSW1(config-router)#network 192.168.1.0 0.0.0.3 a 0
+Sat May 23 02:04:43 2026   MTSW1   MTSW1(config-router)#exit
+Sat May 23 02:04:44 2026   MTSW1   MTSW1(config)#wr
+Sat May 23 02:04:46 2026   MTSW1   MTSW1(config)#do wr
+Sat May 23 02:06:14 2026   R1   R1(config-router)#exit
+Sat May 23 02:06:16 2026   R1   R1(config)#wr
+Sat May 23 02:06:17 2026   R1   R1(config)#do wr
+Sat May 23 02:06:34 2026   R2   Router>en
+Sat May 23 02:06:35 2026   R2   Router#config t
+Sat May 23 02:06:44 2026   R2   Router(config)#hostname R2
+Sat May 23 02:06:59 2026   R2   R2(config)#int g0/0/0
+Sat May 23 02:07:31 2026   R2   R2(config-if)#ip add 10.10.10.2 255.255.255.252
+Sat May 23 02:07:33 2026   R2   R2(config-if)#no shut
+Sat May 23 02:07:43 2026   R2   R2(config-if)#int g0/0/1
+Sat May 23 02:07:53 2026   R2   R2(config-if)#ip add 192.168.2.1 255.255.255.252
+Sat May 23 02:07:55 2026   R2   R2(config-if)#no shut
+Sat May 23 02:08:16 2026   R2   R2(config-if)#exit
+Sat May 23 02:08:22 2026   R2   R2(config)#router ospf 1
+Sat May 23 02:09:00 2026   R2   R2(config-router)#network 10.10.10.0 0.0.0.3 a 0
+Sat May 23 02:09:15 2026   R2   R2(config-router)#network 192.168.2.0 
+Sat May 23 02:09:28 2026   R2   R2(config-router)#network 192.168.2.0 0.0.0.3 a 0
+Sat May 23 02:09:37 2026   R2   R2(config-router)#exit
+Sat May 23 02:09:38 2026   R2   R2(config)#wr
+Sat May 23 02:09:40 2026   R2   R2(config)#do wr
+Sat May 23 02:09:55 2026   MTSW2   Switch>en
+Sat May 23 02:09:58 2026   MTSW2   Switch#config t
+Sat May 23 02:13:48 2026   MTSW2   Switch(config)#hostname MTSW2
+Sat May 23 02:13:57 2026   MTSW2   MTSW2(config)#ip routing
+Sat May 23 02:14:09 2026   MTSW2   MTSW2(config)#vlan 30
+Sat May 23 02:14:22 2026   MTSW2   MTSW2(config-vlan)#name SALES
+Sat May 23 02:14:26 2026   MTSW2   MTSW2(config-vlan)#vlan 40
+Sat May 23 02:14:31 2026   MTSW2   MTSW2(config-vlan)#name MKT
+Sat May 23 02:14:50 2026   MTSW2   MTSW2(config-vlan)#exit
+Sat May 23 02:15:09 2026   MTSW2   MTSW2(config)#int f0/1
+Sat May 23 02:15:15 2026   MTSW2   MTSW2(config-if)#no switchport
+Sat May 23 02:16:16 2026   MTSW2   MTSW2(config-if)#ip add 192.168.2.2 255.255.255.252
+Sat May 23 02:16:22 2026   MTSW2   MTSW2(config-if)#no shut
+Sat May 23 02:16:24 2026   MTSW2   MTSW2(config-if)#exit
+Sat May 23 02:16:31 2026   MTSW2   MTSW2(config)#int vlan 30
+Sat May 23 02:16:50 2026   MTSW2   MTSW2(config-if)#ip add 192.168.30.1 255.255.255.0 
+Sat May 23 02:16:53 2026   MTSW2   MTSW2(config-if)#no shut
+Sat May 23 02:17:05 2026   MTSW2   MTSW2(config-if)#int vlan 40
+Sat May 23 02:17:19 2026   MTSW2   MTSW2(config-if)#ip add 192.168.40.1 255.255.255.0
+Sat May 23 02:17:23 2026   MTSW2   MTSW2(config-if)#no shut
+Sat May 23 02:17:25 2026   MTSW2   MTSW2(config-if)#exit
+Sat May 23 02:17:33 2026   MTSW2   MTSW2(config)#router ospf 1
+Sat May 23 02:21:37 2026   MTSW2   MTSW2(config-router)#network 192.168.2.0 0.0.0.3 a 0
+Sat May 23 02:22:12 2026   MTSW2   MTSW2(config-router)#network 192.168.30.0 0.0.0.255 a 0
+Sat May 23 02:22:20 2026   MTSW2   MTSW2(config-router)#network 192.168.40.0 0.0.0.255 a 0
+Sat May 23 02:22:23 2026   MTSW2   MTSW2(config-router)#exit
+Sat May 23 02:22:31 2026   MTSW2   MTSW2(config)#exit
+Sat May 23 02:22:33 2026   MTSW2   MTSW2#wr
+Sat May 23 02:22:39 2026   MTSW2   MTSW2#config t
+Sat May 23 02:23:44 2026   MTSW2   MTSW2(config)#int range f0/2,f0/5
+Sat May 23 02:24:06 2026   MTSW2   MTSW2(config-if-range)#switchport trunk encapsulation dot1q
+Sat May 23 02:24:25 2026   MTSW2   MTSW2(config-if-range)#switchport mode trunk
+Sat May 23 02:24:34 2026   MTSW2   MTSW2(config-if-range)#end
+Sat May 23 02:24:35 2026   MTSW2   MTSW2#wr
+Sat May 23 02:25:05 2026   MTSW2   MTSW2#sh vlan br
+Sat May 23 02:25:18 2026   MTSW2   MTSW2#sh trunk
+Sat May 23 02:25:23 2026   MTSW2   MTSW2#sh int trunk
+Sat May 23 02:33:09 2026   SW3   Switch>en
+Sat May 23 02:33:10 2026   SW3   Switch#config t
+Sat May 23 02:33:16 2026   SW3   Switch(config)#hostname SW3
+Sat May 23 02:33:41 2026   MTSW2   MTSW2#config t
+Sat May 23 02:33:53 2026   MTSW2   MTSW2(config)#ip dhcp pool vlan30
+Sat May 23 02:34:11 2026   MTSW2   MTSW2(dhcp-config)#network 192.168.30.0 255.255.255.0
+Sat May 23 02:34:47 2026   MTSW2   MTSW2(dhcp-config)#default-router 192.168.30.1
+Sat May 23 02:35:16 2026   MTSW2   MTSW2(dhcp-config)#ip dhcp excluded-address 192.168.30.1 192.168.30.10
+Sat May 23 02:35:22 2026   MTSW2   MTSW2(config)#exit
+Sat May 23 02:35:45 2026   MTSW2   MTSW2#config t
+Sat May 23 02:35:54 2026   MTSW2   MTSW2(config)#ip dhcp pool vlan40
+Sat May 23 02:36:17 2026   MTSW2   MTSW2(dhcp-config)#network 192.168.40.0 255.255.255.0
+Sat May 23 02:36:34 2026   MTSW2   MTSW2(dhcp-config)#default-router 192.168.40.1
+Sat May 23 02:36:59 2026   MTSW2   MTSW2(dhcp-config)#ip dhcp excluded-address 192.168.40.1 192.168.40.10
+Sat May 23 02:37:08 2026   MTSW2   MTSW2(config)#exit
+Sat May 23 02:37:08 2026   MTSW2   MTSW2#w
+Sat May 23 02:37:10 2026   MTSW2   MTSW2#wr
+Sat May 23 02:37:28 2026   SW3   SW3(config)#vlan 30
+Sat May 23 02:37:32 2026   SW3   SW3(config-vlan)#name SALES
+Sat May 23 02:37:38 2026   SW3   SW3(config-vlan)#exit
+Sat May 23 02:37:56 2026   SW3   SW3(config)#int f0/1
+Sat May 23 02:38:07 2026   SW3   SW3(config-if)#switchport mode trunk
+Sat May 23 02:38:12 2026   SW3   SW3(config-if)#exit
+Sat May 23 02:39:18 2026   SW3   SW3(config)#int range f0/2-5
+Sat May 23 02:39:29 2026   SW3   SW3(config-if-range)#switchport mode access
+Sat May 23 02:39:38 2026   SW3   SW3(config-if-range)#switchport access vlan 30
+Sat May 23 02:40:40 2026   SW3   SW3(config-if-range)#do wr
+Sat May 23 02:40:42 2026   SW3   SW3(config-if-range)#exit
+Sat May 23 02:40:53 2026   SW3   SW3(config)#exit
+Sat May 23 02:40:54 2026   SW3   SW3#wr
+Sat May 23 02:41:44 2026   MTSW2   MTSW2#config t
+Sat May 23 02:42:39 2026   MTSW2   MTSW2(config)#ip dhcp pool vlan40
+Sat May 23 02:43:11 2026   MTSW2   MTSW2(dhcp-config)#dns-server 8.8.8.8
+Sat May 23 02:43:15 2026   MTSW2   MTSW2(dhcp-config)#do wr
+Sat May 23 02:43:18 2026   MTSW2   MTSW2(dhcp-config)#exit
+Sat May 23 02:43:20 2026   MTSW2   MTSW2(config)#do wr
+Sat May 23 02:43:26 2026   MTSW2   MTSW2(config)#ip dhcp pool vlan30
+Sat May 23 02:43:31 2026   MTSW2   MTSW2(dhcp-config)#dns-server 8.8.8.8
+Sat May 23 02:43:33 2026   MTSW2   MTSW2(dhcp-config)#exit
+Sat May 23 02:43:35 2026   MTSW2   MTSW2(config)#do wr
+Sat May 23 03:01:45 2026   SW4   Switch>en
+Sat May 23 03:01:47 2026   SW4   Switch#config t
+Sat May 23 03:01:55 2026   SW4   Switch(config)#hostname SW4
+Sat May 23 03:02:17 2026   SW4   SW4(config)#vlan 40
+Sat May 23 03:02:20 2026   SW4   SW4(config-vlan)#name MKT
+Sat May 23 03:02:24 2026   SW4   SW4(config-vlan)#exit
+Sat May 23 03:02:32 2026   SW4   SW4(config)#int f0/1
+Sat May 23 03:03:04 2026   SW4   SW4(config-if)#switchport mode trunk
+Sat May 23 03:04:03 2026   SW4   SW4(config-if)#int range f0/2-5
+Sat May 23 03:04:11 2026   SW4   SW4(config-if-range)#switchport mode access
+Sat May 23 03:04:19 2026   SW4   SW4(config-if-range)#switchport access vlan40
+Sat May 23 03:04:23 2026   SW4   SW4(config-if-range)#switchport access vlan 40
+Sat May 23 03:04:45 2026   SW4   SW4(config-if-range)#do wr
+Sat May 23 03:27:45 2026   SW1   SW1>en
+Sat May 23 03:27:46 2026   SW1   SW1#config t
+Sat May 23 03:38:55 2026   SW1   SW1(config)#int range f0/6,f0/8
+Sat May 23 03:39:10 2026   SW1   SW1(config-if-range)#switchport mode access
+Sat May 23 03:39:35 2026   SW1   SW1(config-if-range)#switchport access vlan 10
+Sat May 23 03:39:45 2026   SW1   SW1(config-if-range)#do wr
+Sat May 23 04:29:05 2026   MTSW1   MTSW1>enable
+Sat May 23 04:29:05 2026   MTSW1   MTSW1#configure terminal
+Sat May 23 04:29:06 2026   MTSW1   MTSW1(config)#router rip
+Sat May 23 04:29:08 2026   MTSW1   MTSW1(config-router)#end
+Sat May 23 04:29:08 2026   MTSW1   MTSW1#configure terminal
+Sat May 23 04:29:16 2026   MTSW1   MTSW1(config)#interface FastEthernet0/1
+Sat May 23 04:29:18 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:18 2026   MTSW1   MTSW1(config)#interface FastEthernet0/2
+Sat May 23 04:29:19 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:19 2026   MTSW1   MTSW1(config)#interface FastEthernet0/3
+Sat May 23 04:29:20 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:20 2026   MTSW1   MTSW1(config)#interface FastEthernet0/4
+Sat May 23 04:29:20 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:20 2026   MTSW1   MTSW1(config)#interface FastEthernet0/5
+Sat May 23 04:29:21 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:21 2026   MTSW1   MTSW1(config)#interface FastEthernet0/8
+Sat May 23 04:29:22 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:22 2026   MTSW1   MTSW1(config)#interface FastEthernet0/12
+Sat May 23 04:29:22 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:22 2026   MTSW1   MTSW1(config)#interface FastEthernet0/14
+Sat May 23 04:29:23 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:23 2026   MTSW1   MTSW1(config)#interface FastEthernet0/17
+Sat May 23 04:29:23 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:23 2026   MTSW1   MTSW1(config)#interface FastEthernet0/18
+Sat May 23 04:29:24 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:24 2026   MTSW1   MTSW1(config)#interface FastEthernet0/19
+Sat May 23 04:29:24 2026   MTSW1   MTSW1(config-if)#exit
+Sat May 23 04:29:24 2026   MTSW1   MTSW1(config)#interface FastEthernet0/20
+Sat May 23 04:30:00 2026   MTSW1   MTSW1(config-if)#end
+Sat May 23 04:30:04 2026   MTSW1   MTSW1#exit
+Sat May 23 04:30:08 2026   MTSW1   MTSW1>enable
+Sat May 23 04:30:08 2026   MTSW1   MTSW1#conf t
+Sat May 23 04:30:08 2026   MTSW1   MTSW1(config)#hostname CORE-SW
+Sat May 23 04:30:20 2026   MTSW1   CORE-SW(config)#ip domain-name lab.local
+Sat May 23 04:30:23 2026   MTSW1   CORE-SW(config)#username admin secret 123456
+Sat May 23 04:30:39 2026   MTSW1   CORE-SW(config)#crypto key generate rsa
+Sat May 23 04:31:03 2026   MTSW1   CORE-SW(config)#ip ssh version 2
+Sat May 23 04:31:10 2026   MTSW1   CORE-SW(config)#line vty 0 4
+Sat May 23 04:31:10 2026   MTSW1   CORE-SW(config-line)#login local
+Sat May 23 04:31:12 2026   MTSW1   CORE-SW(config-line)#transport input ssh
+Sat May 23 04:31:18 2026   MTSW1   CORE-SW(config-line)#interface vlan 1
+Sat May 23 04:31:18 2026   MTSW1   CORE-SW(config-if)#ip address 192.168.10.2 255.255.255.0
+Sat May 23 04:31:36 2026   MTSW1   CORE-SW(config-if)#no ip address 192.168.10.2 255.255.255.0
+Sat May 23 04:31:57 2026   MTSW1   CORE-SW#interface vlan 1
+Sat May 23 04:31:57 2026   MTSW1   CORE-SW#ip address 192.168.10.2 255.255.255.0
+Sat May 23 04:32:03 2026   MTSW1   CORE-SW#config t
+Sat May 23 04:32:11 2026   MTSW1   CORE-SW(config)#interface vlan 1
+Sat May 23 04:32:11 2026   MTSW1   CORE-SW(config-if)#ip address 192.168.10.2 255.255.255.0
+Sat May 23 04:32:20 2026   MTSW1   CORE-SW(config-if)#no ip address 192.168.10.2 255.255.255.0
+Sat May 23 04:32:54 2026   MTSW1   CORE-SW(config-if)#exit
+Sat May 23 04:33:03 2026   MTSW1   CORE-SW(config)#int vlan 2
+Sat May 23 04:34:07 2026   MTSW1   CORE-SW(config-if)#ip address 192.168.2.2 255.255.255.0
+Sat May 23 04:34:11 2026   MTSW1   CORE-SW(config-if)#no shut
+Sat May 23 04:34:35 2026   MTSW1   CORE-SW(config-if)#ip default-gateway 192.168.2.1
+Sat May 23 04:34:42 2026   MTSW1   CORE-SW(config)#do wr
+
